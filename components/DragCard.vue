@@ -15,7 +15,7 @@
         <input
           v-if="isEditingTitle"
           ref="titleInput"
-          v-model="editTitle"
+          v-model="titleEditValue"
           class="w-full font-semibold text-lg bg-transparent border-b border-gray-300 focus:border-blue-500 focus:outline-none"
           :aria-label="`Edit title for card ${card.id}`"
           @blur="saveTitle"
@@ -55,7 +55,7 @@
       <textarea
         v-if="isEditingContent"
         ref="contentTextarea"
-        v-model="editContent"
+        v-model="contentEditValue"
         class="w-full h-full min-h-[80px] bg-transparent border border-gray-300 rounded p-2 focus:border-blue-500 focus:outline-none resize-none"
         :aria-label="`Edit content for card ${card.id}`"
         @blur="saveContent"
@@ -105,8 +105,8 @@ const cardStore = useCardStore()
 // Editing state
 const isEditingTitle = ref(false)
 const isEditingContent = ref(false)
-const editTitle = ref(props.card.title)
-const editContent = ref(props.card.content)
+const titleEditValue = ref(props.card.title)
+const contentEditValue = ref(props.card.content)
 const isFocused = ref(false)
 
 // Template refs
@@ -129,11 +129,11 @@ const cardClasses = computed(() => [
 
 // Watch for card updates
 watch(() => props.card.title, (newTitle) => {
-  editTitle.value = newTitle
+  titleEditValue.value = newTitle
 })
 
 watch(() => props.card.content, (newContent) => {
-  editContent.value = newContent
+  contentEditValue.value = newContent
 })
 
 // Methods
@@ -145,40 +145,40 @@ const startEditing = () => {
 
 const editTitle = async () => {
   isEditingTitle.value = true
-  editTitle.value = props.card.title
+  titleEditValue.value = props.card.title
   await nextTick()
   titleInput.value?.focus()
   titleInput.value?.select()
 }
 
 const saveTitle = () => {
-  if (editTitle.value.trim() !== props.card.title) {
-    cardStore.updateCard(props.card.id, { title: editTitle.value.trim() || 'Untitled' })
+  if (titleEditValue.value.trim() !== props.card.title) {
+    cardStore.updateCard(props.card.id, { title: titleEditValue.value.trim() || 'Untitled' })
   }
   isEditingTitle.value = false
 }
 
 const cancelTitleEdit = () => {
-  editTitle.value = props.card.title
+  titleEditValue.value = props.card.title
   isEditingTitle.value = false
 }
 
 const editContent = async () => {
   isEditingContent.value = true
-  editContent.value = props.card.content
+  contentEditValue.value = props.card.content
   await nextTick()
   contentTextarea.value?.focus()
 }
 
 const saveContent = () => {
-  if (editContent.value !== props.card.content) {
-    cardStore.updateCard(props.card.id, { content: editContent.value })
+  if (contentEditValue.value !== props.card.content) {
+    cardStore.updateCard(props.card.id, { content: contentEditValue.value })
   }
   isEditingContent.value = false
 }
 
 const cancelContentEdit = () => {
-  editContent.value = props.card.content
+  contentEditValue.value = props.card.content
   isEditingContent.value = false
 }
 

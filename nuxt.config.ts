@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url'
 import { resolve } from 'node:path'
 
 const rootDir = fileURLToPath(new URL('.', import.meta.url))
+const cssPath = resolve(rootDir, 'assets/css/main.css')
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
@@ -19,7 +20,13 @@ export default defineNuxtConfig({
     '@pinia/nuxt'
   ],
   
-  css: [resolve(rootDir, 'assets/css/main.css')],
+  tailwindcss: {
+    cssPath,
+    exposeConfig: false,
+    configPath: 'tailwind.config'
+  },
+  
+  css: [cssPath],
   
   alias: {
     'element-resize-detector': '~/shims/element-resize-detector.js'
