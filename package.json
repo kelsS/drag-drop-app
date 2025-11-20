@@ -17,9 +17,12 @@
     "@nuxt/test-utils": "^3.20.1",
     "@nuxtjs/tailwindcss": "^6.14.0",
     "@pinia/nuxt": "^0.11.3",
+    "@types/node": "^24.10.1",
+    "@typescript-eslint/parser": "^8.47.0",
     "element-resize-detector": "^1.2.4",
     "eslint": "^9.39.1",
     "nuxt": "^4.2.1",
+    "prettier": "^3.6.2",
     "vue": "^3.5.24",
     "vue-grid-layout-v3": "^3.1.2",
     "vue-router": "^4.6.3"
