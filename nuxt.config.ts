@@ -14,7 +14,6 @@ export default defineNuxtConfig({
     '@pinia/nuxt'
   ],
   
-  css: ['~/assets/css/main.css'],
   
   alias: {
     'element-resize-detector': '~/shims/element-resize-detector.js'
