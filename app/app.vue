@@ -6,5 +6,5 @@
 </template>
 
 <style>
-@import "~/assets/css/main.css";
+/* Global styles are imported via nuxt.config.ts */
 </style>

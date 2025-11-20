@@ -27,50 +27,15 @@
     <!-- Grid Layout -->
     <ClientOnly>
       <template #default>
-        <GridLayout
-          v-if="!isLoading && cardStore.cardCount > 0"
-          :layout="layoutData"
-          :col-num="colNum"
-          :row-height="rowHeight"
-          :is-draggable="isDraggable"
-          :is-resizable="isResizable"
-          :is-mirrored="false"
-          :vertical-compact="true"
-          :margin="[10, 10]"
-          :use-css-transforms="true"
-          :responsive="isResponsive"
-          :breakpoints="breakpoints"
-          :cols="responsiveCols"
-          class="grid-layout"
-          @layout-updated="onLayoutUpdate"
-          @layout-ready="onLayoutReady"
-        >
-          <GridItem
-            v-for="item in layoutData"
-            :key="item.i"
-            :x="item.x"
-            :y="item.y"
-            :w="item.w"
-            :h="item.h"
-            :i="item.i"
-            class="grid-item"
-            :class="{
-              'grid-item-dragging': draggingItem === item.i,
-              'drop-zone-highlight': isDropTarget && draggingItem !== item.i
-            }"
-            @resize="onItemResize"
-            @move="onItemMove"
-            @moved="onItemMoved"
-            @resized="onItemResized"
+        <div v-if="!isLoading && cardStore.cardCount > 0" class="simple-grid">
+          <div 
+            v-for="card in cardStore.cards" 
+            :key="card.id"
+            class="grid-item-simple"
           >
-            <DragCard
-              :card="getCardById(item.i)!"
-              :is-dragging="draggingItem === item.i"
-              @mousedown="onCardMouseDown(item.i)"
-              @touchstart="onCardTouchStart(item.i)"
-            />
-          </GridItem>
-        </GridLayout>
+            <DragCard :card="card" />
+          </div>
+        </div>
       </template>
       
       <template #fallback>
@@ -123,7 +88,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, nextTick } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
 import { GridLayout, GridItem } from 'vue-grid-layout-v3'
 import { useCardStore, type GridLayout as GridLayoutType } from '~/stores/cards'
 
@@ -297,6 +262,14 @@ onUnmounted(() => {
 <style scoped>
 .drag-grid-container {
   @apply w-full min-h-screen bg-gray-50 dark:bg-gray-900;
+}
+
+.simple-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4;
+}
+
+.grid-item-simple {
+  @apply h-64;
 }
 
 .grid-layout {
