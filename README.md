@@ -11,8 +11,9 @@ Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduct
 Make sure to install dependencies:
 
 ```bash
-# npm
-npm install
+# npm 
+- always run `npm ci` NOT `npm install`, npm ci uses the package-lock.json file in the repo rather than creating a new one. throws error if out of sync with package.json
+npm ci
 
 # pnpm
 pnpm install
