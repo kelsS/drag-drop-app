@@ -2,6 +2,10 @@
 
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
+## Package-lock
+
+- Only commit the `package-lock.json` if you make changes to `package.jsons`
+
 ## Setup
 
 Make sure to install dependencies:
